@@ -25,7 +25,7 @@
 				}
 				return "none";
 			}
-			var version = "1.2.2 (286a_01)"; // 版本设置
+			var version = "1.2.2 (286a_05)"; // 版本设置
 			var openversion = false;
 			document.writeln("<title>GPTSDK " + version + "</title>"); // 页面标题
 			// 输入密钥
@@ -482,6 +482,7 @@
 				if (result == "密钥错误") {
 					result = "<font color='red'>[错误] 密钥错误。</font>";
 				}
+				result = marked.parse(result);
 				return result;
 			}
 			function submitQuestion() {
@@ -515,8 +516,7 @@
 					setTimeout(print(), 500);
 					setTimeout(function () {
 						answer = requestAI(ask);
-						document.getElementById(chatid).innerHTML =
-							marked.parse(answer);
+						document.getElementById(chatid).innerHTML = answer;
 						document.getElementById("questions").disabled = false;
 						document.getElementById(
 							"questionsSubmit"
