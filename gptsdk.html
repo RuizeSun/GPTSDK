@@ -25,7 +25,7 @@
 				}
 				return "none";
 			}
-			var version = "1.2.2 (286a_05)"; // 版本设置
+			var version = "1.2.2 (286a_06)"; // 版本设置
 			var openversion = false;
 			document.writeln("<title>GPTSDK " + version + "</title>"); // 页面标题
 			// 输入密钥
@@ -37,7 +37,11 @@
 					var key = window.prompt("[内部版本] 请输入密钥：");
 					setCookie("key", key, 30);
 					setCookie("alert", "true", 30);
-					setCookie("api", "https://capi.fenserver.cn/gpt.php", 30);
+					setCookie(
+						"api",
+						"https://capi.fenserver.cn/s/chat?form=1",
+						30
+					);
 					alert(
 						"已经自动为您添加密钥至 Cookie 中！30天后自动失效。\n如需要提前失效或更换密钥可进入菜单中“安全”页面进行设置。\n默认为 FensGPT-3 服务器，可进入菜单中“安全”页面进行设置。"
 					);
@@ -469,11 +473,7 @@
 				$.ajax({
 					url: getCookie("api"),
 					type: "post",
-					data: {
-						apikey: getCookie("key"),
-						content: questions,
-						form: "1",
-					},
+					data: { apikey: getCookie("key"), content: questions },
 					async: false,
 					success: function (data) {
 						result = data;
@@ -482,7 +482,6 @@
 				if (result == "密钥错误") {
 					result = "<font color='red'>[错误] 密钥错误。</font>";
 				}
-				result = marked.parse(result);
 				return result;
 			}
 			function submitQuestion() {
