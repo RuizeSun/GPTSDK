@@ -516,7 +516,7 @@
 					setTimeout(function () {
 						answer = requestAI(ask);
 						document.getElementById(chatid).innerHTML =
-							marked(answer);
+							marked.parse(answer);
 						document.getElementById("questions").disabled = false;
 						document.getElementById(
 							"questionsSubmit"
