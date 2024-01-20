@@ -4,6 +4,7 @@
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 		<!-- 加载功能 -->
 		<script>
 			function setCookie(cname, cvalue, exdays) {
@@ -514,7 +515,8 @@
 					setTimeout(print(), 500);
 					setTimeout(function () {
 						answer = requestAI(ask);
-						document.getElementById(chatid).innerHTML = answer;
+						document.getElementById(chatid).innerHTML =
+							marked(answer);
 						document.getElementById("questions").disabled = false;
 						document.getElementById(
 							"questionsSubmit"
