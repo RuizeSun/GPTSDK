@@ -19,11 +19,12 @@
 				var ca = document.cookie.split(";");
 				for (var i = 0; i < ca.length; i++) {
 					var c = ca[i].trim();
-					if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+					if (c.indexOf(name) == 0)
+						return c.substring(name.length, c.length);
 				}
 				return "none";
 			}
-			var version = "1.2.1 (18a_01)"; // 版本设置
+			var version = "1.2.2 (286a_01)"; // 版本设置
 			var openversion = false;
 			document.writeln("<title>GPTSDK " + version + "</title>"); // 页面标题
 			// 输入密钥
@@ -35,12 +36,20 @@
 					var key = window.prompt("[内部版本] 请输入密钥：");
 					setCookie("key", key, 30);
 					setCookie("alert", "true", 30);
-					setCookie("api", "http://fenserver1.e1.luyouxia.net:27725/gpt.php", 30);
-					alert("已经自动为您添加密钥至 Cookie 中！30天后自动失效。\n如需要提前失效或更换密钥可进入菜单中“安全”页面进行设置。\n默认为 FensGPT-3 服务器，可进入菜单中“安全”页面进行设置。");
+					setCookie(
+						"api",
+						"https://capi.fenserver.cn/s/chat?form=1",
+						30
+					);
+					alert(
+						"已经自动为您添加密钥至 Cookie 中！30天后自动失效。\n如需要提前失效或更换密钥可进入菜单中“安全”页面进行设置。\n默认为 FensGPT-3 服务器，可进入菜单中“安全”页面进行设置。"
+					);
 				} else {
 					var key = getCookie("key");
 					if (getCookie("alert") == "true") {
-						alert("已经自动为您使用现有密钥，如需更换请进入菜单中“安全”页面进行设置。\n如需关闭此弹窗，可进入菜单中“提醒”页面进行设置。");
+						alert(
+							"已经自动为您使用现有密钥，如需更换请进入菜单中“安全”页面进行设置。\n如需关闭此弹窗，可进入菜单中“提醒”页面进行设置。"
+						);
 					}
 				}
 			}
@@ -57,7 +66,10 @@
 
 		<!-- Bootstrap -->
 		<!-- 新 Bootstrap5 核心 CSS 文件 -->
-		<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/css/bootstrap.min.css" />
+		<link
+			rel="stylesheet"
+			href="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/css/bootstrap.min.css"
+		/>
 		<!--  popper.min.js 用于弹窗、提示、下拉菜单 -->
 		<script src="https://cdn.staticfile.org/popper.js/2.9.3/umd/popper.min.js"></script>
 		<!-- 最新的 Bootstrap5 核心 JavaScript 文件 -->
@@ -153,17 +165,36 @@
 						<!-- 模态框头部 -->
 						<div class="modal-header">
 							<h4 class="modal-title">提示</h4>
-							<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+							<button
+								type="button"
+								class="btn-close"
+								data-bs-dismiss="modal"
+							></button>
 						</div>
 
 						<!-- 模态框内容 -->
 						<div class="modal-body">
-							<form name="tipsForm" method="dialog" onsubmit="saveTipsForm();">
+							<form
+								name="tipsForm"
+								method="dialog"
+								onsubmit="saveTipsForm();"
+							>
 								<div class="form-check form-switch">
-									<label class="form-check-label">每次加载时进行设置提示</label>
-									<input type="checkbox" class="form-check-input" name="startTips" id="startTips" /><br />
+									<label class="form-check-label"
+										>每次加载时进行设置提示</label
+									>
+									<input
+										type="checkbox"
+										class="form-check-input"
+										name="startTips"
+										id="startTips"
+									/><br />
 								</div>
-								<input type="submit" class="btn btn-danger" value="保存设置" />
+								<input
+									type="submit"
+									class="btn btn-danger"
+									value="保存设置"
+								/>
 							</form>
 						</div>
 
@@ -178,18 +209,42 @@
 						<!-- 模态框头部 -->
 						<div class="modal-header">
 							<h4 class="modal-title">安全</h4>
-							<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+							<button
+								type="button"
+								class="btn-close"
+								data-bs-dismiss="modal"
+							></button>
 						</div>
 
 						<!-- 模态框内容 -->
 						<div class="modal-body">
-							<form name="securityForm" method="dialog" onsubmit="saveSecurityForm();">
+							<form
+								name="securityForm"
+								method="dialog"
+								onsubmit="saveSecurityForm();"
+							>
 								<div class="form-check form-switch">
 									<label>API 地址：</label>
-									<input type="text" class="form-control" name="API" id="API" />
+									<input
+										type="text"
+										class="form-control"
+										name="API"
+										id="API"
+									/>
 									<label>API 密钥：</label>
-									<input type="text" autocomplete="no" class="form-control" name="keyset" id="keyset" />
-									<a onclick="clearCookie();" class="btn btn-primary"> 清理 Cookie 缓存</a>
+									<input
+										type="text"
+										autocomplete="no"
+										class="form-control"
+										name="keyset"
+										id="keyset"
+									/>
+									<a
+										onclick="clearCookie();"
+										class="btn btn-primary"
+									>
+										清理 Cookie 缓存</a
+									>
 									<label>(提前失效缓存)</label>
 									<table class="table table-hover">
 										<thead>
@@ -203,17 +258,25 @@
 											<tr>
 												<td>FensGPT-3</td>
 												<td>Fenserver</td>
-												<td>http://fenserver1.e1.luyouxia.net:27725/gpt.php</td>
+												<td>
+													http://fenserver1.e1.luyouxia.net:27725/gpt.php
+												</td>
 											</tr>
 											<tr>
 												<td>NewBing</td>
 												<td>Fenserver</td>
-												<td>http://scratchfens.e1.luyouxia.net:22730/bing.php</td>
+												<td>
+													http://scratchfens.e1.luyouxia.net:22730/bing.php
+												</td>
 											</tr>
 										</tbody>
 									</table>
 								</div>
-								<input type="submit" class="btn btn-danger" value="保存设置" />
+								<input
+									type="submit"
+									class="btn btn-danger"
+									value="保存设置"
+								/>
 							</form>
 						</div>
 
@@ -228,16 +291,20 @@
 						<!-- 模态框头部 -->
 						<div class="modal-header">
 							<h4 class="modal-title">更新日志</h4>
-							<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+							<button
+								type="button"
+								class="btn-close"
+								data-bs-dismiss="modal"
+							></button>
 						</div>
 
 						<!-- 模态框内容 -->
 						<div class="modal-body">
-							<h4> 1.2.1 (18a_01)</h4>
+							<h4>1.2.1 (18a_01)</h4>
 							<ol>
 								<li>优化语言描述，设置功能清晰；</li>
 							</ol>
-							<h4> 1.2.0 (18a)</h4>
+							<h4>1.2.0 (18a)</h4>
 							<ol>
 								<li>更改内核至H5技术；</li>
 								<li>更改用户界面；</li>
@@ -247,17 +314,33 @@
 
 						<!-- 模态框底部 -->
 						<div class="modal-footer">
-							<button type="button" class="btn btn-danger" data-bs-dismiss="modal"> 关闭 </button>
+							<button
+								type="button"
+								class="btn btn-danger"
+								data-bs-dismiss="modal"
+							>
+								关闭
+							</button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		<!-- 侧边栏 -->
-		<div class="offcanvas offcanvas-start" tabindex="-1" id="menuBar" aria-labelledby="offcanvasExampleLabel">
+		<div
+			class="offcanvas offcanvas-start"
+			tabindex="-1"
+			id="menuBar"
+			aria-labelledby="offcanvasExampleLabel"
+		>
 			<div class="offcanvas-header">
 				<h5 class="offcanvas-title" id="menuBarLabel">菜单</h5>
-				<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+				<button
+					type="button"
+					class="btn-close text-reset"
+					data-bs-dismiss="offcanvas"
+					aria-label="Close"
+				></button>
 			</div>
 			<div class="offcanvas-body">
 				<!-- 介绍(调用了版本号JS) -->
@@ -268,35 +351,78 @@
 				</p>
 				<p>
 					由 Fenserver 构建服务器，
-					<a href="https://space.bilibili.com/510460748" class="btn btn-light">Ruize Sun</a>
+					<a
+						href="https://space.bilibili.com/510460748"
+						class="btn btn-light"
+						>Ruize Sun</a
+					>
 					制作开发工具包。通过 GPTSDK 制作的一个学习用 Demo。
 				</p>
 				<!-- 选项 -->
 				<ul class="nav nav-pills flex-column mb-auto">
 					<li class="nav-item">
-						<a href="javascript:;" class="nav-link" data-bs-toggle="modal" data-bs-target="#TipsMenu"
-							><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-body-text" viewBox="0 0 16 16">
+						<a
+							href="javascript:;"
+							class="nav-link"
+							data-bs-toggle="modal"
+							data-bs-target="#TipsMenu"
+							><svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="16"
+								height="16"
+								fill="currentColor"
+								class="bi bi-body-text"
+								viewBox="0 0 16 16"
+							>
 								<path
 									fill-rule="evenodd"
-									d="M0 .5A.5.5 0 0 1 .5 0h4a.5.5 0 0 1 0 1h-4A.5.5 0 0 1 0 .5Zm0 2A.5.5 0 0 1 .5 2h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5Zm9 0a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5Zm-9 2A.5.5 0 0 1 .5 4h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Zm5 0a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5Zm7 0a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Zm-12 2A.5.5 0 0 1 .5 6h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5Zm8 0a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5Zm-8 2A.5.5 0 0 1 .5 8h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5Zm7 0a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5Zm-7 2a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1h-8a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Z" />
+									d="M0 .5A.5.5 0 0 1 .5 0h4a.5.5 0 0 1 0 1h-4A.5.5 0 0 1 0 .5Zm0 2A.5.5 0 0 1 .5 2h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5Zm9 0a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5Zm-9 2A.5.5 0 0 1 .5 4h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Zm5 0a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5Zm7 0a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Zm-12 2A.5.5 0 0 1 .5 6h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5Zm8 0a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5Zm-8 2A.5.5 0 0 1 .5 8h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5Zm7 0a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5Zm-7 2a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1h-8a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Z"
+								/>
 							</svg>
 							提示</a
 						>
 					</li>
 					<li class="nav-item">
-						<a href="javascript:;" class="nav-link" data-bs-toggle="modal" data-bs-target="#SecurityMenu"
-							><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16">
-								<path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z" />
+						<a
+							href="javascript:;"
+							class="nav-link"
+							data-bs-toggle="modal"
+							data-bs-target="#SecurityMenu"
+							><svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="16"
+								height="16"
+								fill="currentColor"
+								class="bi bi-lock"
+								viewBox="0 0 16 16"
+							>
+								<path
+									d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"
+								/>
 							</svg>
 							安全</a
 						>
 					</li>
 					<li class="nav-item">
-						<a href="javascript:;" class="nav-link" data-bs-toggle="modal" data-bs-target="#updateGPTSDK"
-							><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
-								<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+						<a
+							href="javascript:;"
+							class="nav-link"
+							data-bs-toggle="modal"
+							data-bs-target="#updateGPTSDK"
+							><svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="16"
+								height="16"
+								fill="currentColor"
+								class="bi bi-info-circle"
+								viewBox="0 0 16 16"
+							>
 								<path
-									d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+									d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
+								/>
+								<path
+									d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"
+								/>
 							</svg>
 							更新日志
 						</a>
@@ -309,13 +435,26 @@
 		<nav class="navbar navbar-expand bg-dark navbar-dark">
 			<ul class="navbar-nav">
 				<li class="nav-item">
-					<a class="nav-link navbar-brand" data-bs-toggle="offcanvas" href="#menuBar" aria-controls="menuBar">
+					<a
+						class="nav-link navbar-brand"
+						data-bs-toggle="offcanvas"
+						href="#menuBar"
+						aria-controls="menuBar"
+					>
 						<span class="badge bg-secondary">
 							<!-- 菜单图标 -->
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-list" viewBox="0 0 16 16">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="16"
+								height="16"
+								fill="white"
+								class="bi bi-list"
+								viewBox="0 0 16 16"
+							>
 								<path
 									fill-rule="evenodd"
-									d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+									d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
+								/>
 							</svg>
 						</span>
 					</a>
@@ -328,11 +467,12 @@
 		<script>
 			function requestAI(questions) {
 				// 请求部分
-				result = "<font color='red'>[错误] Ajax 请求过程中出现问题。</font>";
+				result =
+					"<font color='red'>[错误] Ajax 请求过程中出现问题。</font>";
 				$.ajax({
 					url: getCookie("api"),
 					type: "post",
-					data: { apikey: getCookie("key"), an: questions },
+					data: { apikey: getCookie("key"), content: questions },
 					async: false,
 					success: function (data) {
 						result = data;
@@ -350,42 +490,68 @@
 					// 生成 ChatID
 					document.getElementById("questions").disabled = true;
 					document.getElementById("questionsSubmit").disabled = true;
-					var chatid = "chat-" + String(Math.floor(Math.random() * 999999999));
+					var chatid =
+						"chat-" + String(Math.floor(Math.random() * 999999999));
 					// 请求并显示UI
 					function print() {
-						document.getElementById("chat").innerHTML = document.getElementById("chat").innerHTML + '<p class="chat-me">' + ask + "</p>";
+						document.getElementById("chat").innerHTML =
+							document.getElementById("chat").innerHTML +
+							'<p class="chat-me">' +
+							ask +
+							"</p>";
 						var test1 =
 							document.getElementById("chat").innerHTML +
 							'<p class="chat-ta" id="' +
 							chatid +
 							'"><span class="spinner-grow" style="height: 16px; width: 16px;"></span><span style="font-size: 16px;" class="finding-text">正在请求 API...请耐心等待</p>';
 						document.getElementById("chat").innerHTML = test1;
-						document.getElementById("chat").scrollTop = document.getElementById("chat").scrollHeight;
+						document.getElementById("chat").scrollTop =
+							document.getElementById("chat").scrollHeight;
 					}
 					setTimeout(print(), 500);
 					setTimeout(function () {
 						answer = requestAI(ask);
 						document.getElementById(chatid).innerHTML = answer;
 						document.getElementById("questions").disabled = false;
-						document.getElementById("questionsSubmit").disabled = false;
+						document.getElementById(
+							"questionsSubmit"
+						).disabled = false;
 					}, 7500);
 				}
 			}
 		</script>
-		<form name="mainForm" style="text-align: center" onsubmit="setTimeout(submitQuestion(),8000);" method="dialog">
+		<form
+			name="mainForm"
+			style="text-align: center"
+			onsubmit="setTimeout(submitQuestion(),8000);"
+			method="dialog"
+		>
 			<div class="container">
 				<div class="row">
 					<div class="chat" id="chat">
 						<p class="chat-ta">
-							欢迎使用 GPTSDK 正式版！可以进入菜单修改相关设置！<br />
+							欢迎使用 GPTSDK
+							正式版！可以进入菜单修改相关设置！<br />
 							使用下面的文本框及提交按钮来和 AI 对话！
 						</p>
 					</div>
 				</div>
 				<div class="row">
 					<div class="input-group">
-						<input type="text" class="form-control" name="questions" id="questions" placeholder="输入信息......" autocomplete="off" />
-						<input type="submit" id="questionsSubmit" class="btn btn-primary" value="发送" />
+						<input
+							type="text"
+							class="form-control"
+							name="questions"
+							id="questions"
+							placeholder="输入信息......"
+							autocomplete="off"
+						/>
+						<input
+							type="submit"
+							id="questionsSubmit"
+							class="btn btn-primary"
+							value="发送"
+						/>
 					</div>
 				</div>
 			</div>
@@ -401,7 +567,8 @@
 			document.getElementById("keyset").value = getCookie("key");
 			// 保存模态框
 			function saveTipsForm() {
-				var alertAtStart = document.forms["tipsForm"]["startTips"].checked;
+				var alertAtStart =
+					document.forms["tipsForm"]["startTips"].checked;
 				setCookie("alert", String(alertAtStart));
 				setTimeout(function () {
 					alert("保存成功！");
@@ -409,7 +576,8 @@
 			}
 			function saveSecurityForm() {
 				var apivalue = document.forms["securityForm"]["API"].value;
-				var keyysetvalue = document.forms["securityForm"]["keyset"].value;
+				var keyysetvalue =
+					document.forms["securityForm"]["keyset"].value;
 				setCookie("api", apivalue);
 				setCookie("key", keyysetvalue);
 				setTimeout(function () {
