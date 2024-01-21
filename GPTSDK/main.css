@@ -1,0 +1,85 @@
+/* Github@RuizeSun 制作 */
+.chat {
+	background: linear-gradient(#c3c3c3, #ffffff);
+	height: 75vh;
+	border-radius: 12px;
+	overflow: scroll;
+}
+.chat-ta {
+	margin: 8px;
+	background-color: #fff;
+	padding: 8px;
+	border-radius: 12px;
+	border-bottom-left-radius: 0px;
+	text-align: left;
+	max-width: 50%;
+	word-wrap: break-word;
+	word-break: normal;
+	animation: fiding-open 1s;
+	box-shadow: 4px 4px 4px #bbb;
+}
+.chat-me {
+	margin-left: 70%;
+	background-image: linear-gradient(#269aff, #8ccafe);
+	color: white;
+	padding: 8px;
+	border-radius: 12px;
+	border-bottom-right-radius: 0px;
+	text-align: left;
+	max-width: 30%;
+	word-wrap: break-word;
+	word-break: normal;
+	animation: fiding-open 1s;
+	box-shadow: 4px 4px 4px #bbb;
+}
+.finding-text {
+	animation: fiding 0.75s linear infinite;
+}
+.chat-ta a {
+	text-decoration: none;
+	color: #269aff;
+}
+.chat-ta img {
+	width: 75%;
+	height: 75%;
+}
+/* 动画 */
+@keyframes fiding {
+	0% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+@keyframes fiding-open {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+/* 屏幕优化 */
+@media only screen and (max-width: 512px) {
+	.chat-ta {
+		max-width: 100%;
+	}
+	.chat-me {
+		margin-left: 0%;
+		margin: 8px;
+		max-width: 100%;
+	}
+}
+@media only screen and (max-width: 768px) {
+	.chat-ta {
+		max-width: 75%;
+	}
+	.chat-me {
+		margin-left: 25%;
+		max-width: 75%;
+	}
+}

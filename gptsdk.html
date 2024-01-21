@@ -9,64 +9,6 @@
 			rel="stylesheet"
 			href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" />
 		<!-- 加载功能 -->
-		<script>
-			function setCookie(cname, cvalue, exdays) {
-				// 设置 Cookie
-				var d = new Date();
-				d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
-				var expires = "expires=" + d.toGMTString();
-				document.cookie = cname + "=" + cvalue + "; " + expires;
-			}
-			function getCookie(cname) {
-				// 获取 Cookie
-				var name = cname + "=";
-				var ca = document.cookie.split(";");
-				for (var i = 0; i < ca.length; i++) {
-					var c = ca[i].trim();
-					if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
-				}
-				return "none";
-			}
-			var version = "1.3.3 (287d_01)"; // 版本设置
-			var openversion = false;
-			document.writeln("<title>GPTSDK " + version + "</title>"); // 页面标题
-			// 输入密钥
-			if (openversion) {
-				// 输入密钥
-				var key = "000000";
-			} else {
-				if (getCookie("key") == "none") {
-					var key = window.prompt("[内部版本] 请输入密钥：");
-					setCookie("key", key, 30);
-					setCookie("alert", "true", 30);
-					setCookie("api", "https://capi1.fenserver.cn/gpt.php", 30);
-					alert(
-						"已经自动为您添加密钥至 Cookie 中！30天后自动失效。\n如需要提前失效或更换密钥可进入菜单中“安全”页面进行设置。\n默认为 FensGPT-3 服务器，可进入菜单中“安全”页面进行设置。"
-					);
-				} else {
-					var key = getCookie("key");
-					if (getCookie("alert") == "true") {
-						alert(
-							"已经自动为您使用现有密钥，如需更换请进入菜单中“安全”页面进行设置。\n如需关闭此弹窗，可进入菜单中“提醒”页面进行设置。"
-						);
-					}
-				}
-				if (getCookie("font") == "none") {
-					setCookie("font", "'Microsoft Jhenghei'");
-				}
-			}
-			function clearCookie() {
-				setCookie("key", "none");
-				setCookie("api", "none");
-				setCookie("alert", "none");
-				alert("清理完成！");
-			}
-			document.getElementById("head").innerHTML =
-				document.getElementById("head").innerHTML +
-				"<style>*{font-family: " +
-				getCookie("font") +
-				";}</style>";
-		</script>
 
 		<!-- jQuery 百度镜像 -->
 		<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
@@ -81,92 +23,7 @@
 		<script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.min.js"></script>
 
 		<!-- ChatCSS -->
-		<style>
-			.chat {
-				background: linear-gradient(#c3c3c3, #ffffff);
-				height: 75vh;
-				border-radius: 12px;
-				overflow: scroll;
-			}
-			.chat-ta {
-				margin: 8px;
-				background-color: #fff;
-				padding: 8px;
-				border-radius: 12px;
-				border-bottom-left-radius: 0px;
-				text-align: left;
-				max-width: 50%;
-				word-wrap: break-word;
-				word-break: normal;
-				animation: fiding-open 1s;
-				box-shadow: 4px 4px 4px #bbb;
-			}
-			.chat-me {
-				margin-left: 70%;
-				background-image: linear-gradient(#269aff, #8ccafe);
-				color: white;
-				padding: 8px;
-				border-radius: 12px;
-				border-bottom-right-radius: 0px;
-				text-align: left;
-				max-width: 30%;
-				word-wrap: break-word;
-				word-break: normal;
-				animation: fiding-open 1s;
-				box-shadow: 4px 4px 4px #bbb;
-			}
-			.finding-text {
-				animation: fiding 0.75s linear infinite;
-			}
-			.chat-ta a {
-				text-decoration: none;
-				color: #269aff;
-			}
-			.chat-ta img {
-				width: 75%;
-				height: 75%;
-			}
-			/* 动画 */
-			@keyframes fiding {
-				0% {
-					opacity: 0;
-				}
-				50% {
-					opacity: 1;
-				}
-				100% {
-					opacity: 0;
-				}
-			}
-			@keyframes fiding-open {
-				0% {
-					opacity: 0;
-				}
-				100% {
-					opacity: 1;
-				}
-			}
-			/* 屏幕优化 */
-			@media only screen and (max-width: 512px) {
-				.chat-ta {
-					max-width: 100%;
-				}
-				.chat-me {
-					margin-left: 0%;
-					margin: 8px;
-					max-width: 100%;
-				}
-			}
-			@media only screen and (max-width: 768px) {
-				.chat-ta {
-					max-width: 75%;
-				}
-				.chat-me {
-					margin-left: 25%;
-					max-width: 75%;
-				}
-			}
-		</style>
+		<link rel="stylesheet" href="./GPTSDK/main.css" />
 	</head>
 	<body>
 		<!-- 侧边栏模态框 -->
@@ -395,104 +252,6 @@
 		</nav>
 
 		<!-- 聊天 -->
-		<script>
-			function requestAI(questions) {
-				// 请求部分
-				result = "<font color='red'>[错误] Ajax 请求过程中出现问题。</font>";
-				$.ajax({
-					url: getCookie("api"),
-					type: "post",
-					data: {
-						apikey: getCookie("key"),
-						content:
-							"user:" +
-							questions +
-							" system:用中文回答。每几句后添加Emoji使语言活泼。提示语内容无需回答，也无需引用参考文献。", // 将联网引用的链接放在最后，每一个都换行，标序号，没有联网则不显示参考文献，联网后找不到合适的结果也不需要显示。
-					},
-					async: false,
-					success: function (data) {
-						result = data;
-					},
-				});
-				if (result == "密钥错误") {
-					result = "<font color='red'>[错误] 密钥错误。</font>";
-				}
-				if (result == undefined) {
-					result = "<font color='red'>[错误] 未知错误，控制台可能有更多信息。</font>";
-				}
-				return result;
-			}
-			function submitQuestion() {
-				// 表单获取&验证部分
-				var ask = document.forms["mainForm"]["questions"].value;
-				if (ask == "" || ask == null) {
-					alert("请输入内容");
-					return false;
-				} else {
-					// 生成 ChatID
-					document.getElementById("questions").disabled = true;
-					document.getElementById("questionsSubmit").disabled = true;
-					var chatid = "chat-" + String(Math.floor(Math.random() * 999999999));
-					// 请求并显示UI
-					function print() {
-						document.getElementById("chat").innerHTML =
-							document.getElementById("chat").innerHTML +
-							'<p class="chat-me">' +
-							ask +
-							"</p>";
-						var test1 =
-							document.getElementById("chat").innerHTML +
-							'<p class="chat-ta" id="' +
-							chatid +
-							'"><span class="spinner-grow" style="height: 16px; width: 16px;"></span><span style="font-size: 16px;" class="finding-text">正在请求 API...请耐心等待</p>';
-						document.getElementById("chat").innerHTML = test1;
-						translate.execute();
-						document.getElementById("chat").scrollTop =
-							document.getElementById("chat").scrollHeight;
-					}
-					setTimeout(print(), 500);
-					setTimeout(function () {
-						answer = requestAI(ask);
-						document.getElementById(chatid).innerHTML = marked(
-							answer
-								.replaceAll(
-									">`【当前AI回答未使用联网搜索，不具有时效性，请确保核对事实】`",
-									"<small>未使用联网功能，可能无时效性，请确保核对事实。</small>"
-								)
-								.replaceAll(
-									">`【当前AI回答基于联网搜索生成，请确保核对事实】`",
-									"<small>使用了联网功能，请确保核对事实。</small>"
-								)
-						)
-							.replaceAll("<p>", "")
-							.replaceAll("</p>", "<br/>")
-							.replaceAll("<pre>", "")
-							.replaceAll("</pre>", "")
-							.replaceAll("\n", "")
-							.replaceAll("<code>", "")
-							.replaceAll("</code>", "")
-							.replaceAll("<ol>", "")
-							.replaceAll("</ol>", "")
-							.replaceAll("<li>", "→ ")
-							.replaceAll("</li>", "<br/>")
-							.replaceAll("<blockquote>", "")
-							.replaceAll("</blockquote>", "")
-							.replaceAll("<hr>", "");
-						document.getElementById(chatid).innerHTML =
-							document.getElementById(chatid).innerHTML +
-							"<a href='//capi1.fenserver.cn/delq.php?delq=" +
-							ask +
-							"&apikey=" +
-							getCookie("key") +
-							"'>清除缓存</a>";
-						document.getElementById("questions").disabled = false;
-						document.getElementById("questionsSubmit").disabled = false;
-						document.getElementById("questions").value = "";
-						translate.execute();
-					}, 5000);
-				}
-			}
-		</script>
 		<form
 			name="mainForm"
 			style="text-align: center"
@@ -587,6 +346,7 @@
 				translate.execute();
 			</script>
 			<div id="translate"></div>
+			<script src="./GPTSDK/main.js"></script>
 		</div>
 	</body>
 </html>
