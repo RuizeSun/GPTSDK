@@ -401,7 +401,7 @@
 					data: {
 						apikey: getCookie("key"),
 						content:
-							"【请使用中文回答。将联网引用的链接放在最后，每一个都换行，标上序号。每几句后添加Emoji使语言活泼。本段提示语无需回答。】" +
+							"【用中文回答。将联网引用的链接放在最后，每一个都换行，标序号。每几句后添加Emoji使语言活泼。全角括号括住的内容无需回答。】" +
 							questions,
 					},
 					async: false,
@@ -547,7 +547,11 @@
 		<script src="https://cdn.jsdelivr.net/gh/xnx3/translate@latest/translate.js/translate.min.js"></script>
 		<!-- 底部栏及语言选择框架 -->
 		<div class="text-center">
-			<small>开源项目 GPTSDK 基于 MIT 许可证，来自 Github 。</small>
+			<small>开源项目 GPTSDK 基于 MIT 许可证，来自 Github 。</small><br />
+			<small
+				>请勿发送违反中华人民共和国及您所在国家法律之消息，使用即表示您同意 GPTSDK
+				使用协议。</small
+			>
 			<script>
 				translate.language.setLocal("chinese_simplified");
 				// 翻译优化
