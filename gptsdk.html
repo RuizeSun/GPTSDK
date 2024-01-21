@@ -4,18 +4,18 @@
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+		<script src="https://unpkg.com/marked@2.1.0/marked.min.js"></script>
 		<!-- 加载功能 -->
 		<script>
 			function setCookie(cname, cvalue, exdays) {
-				// 设置cookie
+				// 设置 Cookie
 				var d = new Date();
 				d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
 				var expires = "expires=" + d.toGMTString();
 				document.cookie = cname + "=" + cvalue + "; " + expires;
 			}
 			function getCookie(cname) {
-				// 获取cookie
+				// 获取 Cookie
 				var name = cname + "=";
 				var ca = document.cookie.split(";");
 				for (var i = 0; i < ca.length; i++) {
@@ -25,7 +25,7 @@
 				}
 				return "none";
 			}
-			var version = "1.2.2 (286a_06)"; // 版本设置
+			var version = "1.2.3 (287a_01)"; // 版本设置
 			var openversion = false;
 			document.writeln("<title>GPTSDK " + version + "</title>"); // 页面标题
 			// 输入密钥
@@ -39,7 +39,7 @@
 					setCookie("alert", "true", 30);
 					setCookie(
 						"api",
-						"https://capi.fenserver.cn/s/chat?form=1",
+						"http://fenserver1.w3.luyouxia.net/gpt.php",
 						30
 					);
 					alert(
@@ -91,7 +91,7 @@
 				border-radius: 12px;
 				border-bottom-left-radius: 0px;
 				text-align: left;
-				max-width: 30%;
+				max-width: 50%;
 				word-wrap: break-word;
 				word-break: normal;
 				animation: fiding-open 1s;
@@ -350,15 +350,7 @@
 						document.writeln("GPTSDK v" + version);
 					</script>
 				</p>
-				<p>
-					由 Fenserver 构建服务器，
-					<a
-						href="https://space.bilibili.com/510460748"
-						class="btn btn-light"
-						>Ruize Sun</a
-					>
-					制作开发工具包。通过 GPTSDK 制作的一个学习用 Demo。
-				</p>
+				<p>由 Fenyi Computing Studios 构建内置服务器。</p>
 				<!-- 选项 -->
 				<ul class="nav nav-pills flex-column mb-auto">
 					<li class="nav-item">
@@ -515,7 +507,8 @@
 					setTimeout(print(), 500);
 					setTimeout(function () {
 						answer = requestAI(ask);
-						document.getElementById(chatid).innerHTML = answer;
+						document.getElementById(chatid).innerHTML =
+							marked.parseanswer;
 						document.getElementById("questions").disabled = false;
 						document.getElementById(
 							"questionsSubmit"

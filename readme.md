@@ -1,13 +1,10 @@
-# English
+# GPTSDK Readme
 
-GPTSDK can make you talk with ChatGPT/NewBing with Fens' proxy server.  
-(maybe no service, because fens says they don't have too money to make the server 24x7 running)
+本文檔有多個語言的版本。  
+This document has multi-language version.  
+本文档有多个语言的版本。  
+[简体中文(中国)](./readme_zhcn.md) [正體中文(台灣)](./readme_zhtw.md) [English&nbsp;(US)](./readme_enus.md)
 
-# Chinese
+---
 
-GPTSDK 能夠幫助您在 Fens 的鏡像伺服器上同 ChatGPT/NewBing 講話。
-
-# Copyright License
-
-使用了 Marked 库。  
-Used the library Marked.
+加入我们的 AI 测试群聊，[暂未开放](example.com)。
