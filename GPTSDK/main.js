@@ -16,7 +16,7 @@ function getCookie(cname) {
 	return "none";
 }
 
-var version = "1.3.3 (287d_01)"; // 版本设置
+var version = "1.3.4 (287f_01)"; // 版本设置
 var openversion = false;
 document.writeln("<title>GPTSDK " + version + "</title>"); // 页面标题
 // 输入密钥
