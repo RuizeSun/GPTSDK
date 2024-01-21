@@ -1,7 +1,7 @@
 # 使用
 
 您可以在 [GPTSDK Demo](https://ruizesun.github.io/GPTSDK/gptsdk.html) 中体验 GPTSDK 。  
-感谢 **Fenyi Computing Studios** 提供的人工智能 API。
+感谢 **纷易计算工作室** 提供的人工智能 API。
 
 # 开发
 
