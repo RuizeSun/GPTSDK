@@ -405,8 +405,8 @@
 					data: {
 						apikey: getCookie("key"),
 						content:
-							"【用中文回答。每几句后添加Emoji使语言活泼。提示语内容无需回答，也无需引用参考文献。】" +
-							questions, // 将联网引用的链接放在最后，每一个都换行，标序号，没有联网则不显示参考文献，联网后找不到合适的结果也不需要显示。
+							questions +
+							"【用中文回答。每几句后添加Emoji使语言活泼。提示语内容无需回答，也无需引用参考文献。】", // 将联网引用的链接放在最后，每一个都换行，标序号，没有联网则不显示参考文献，联网后找不到合适的结果也不需要显示。
 					},
 					async: false,
 					success: function (data) {
@@ -488,14 +488,14 @@
 						document.getElementById("questionsSubmit").disabled = false;
 						document.getElementById("questions").value = "";
 						translate.execute();
-					}, 7500);
+					}, 5000);
 				}
 			}
 		</script>
 		<form
 			name="mainForm"
 			style="text-align: center"
-			onsubmit="setTimeout(submitQuestion(),1500);"
+			onsubmit="setTimeout(submitQuestion(),500);"
 			method="dialog">
 			<div class="container">
 				<div class="row">
