@@ -37,7 +37,11 @@
 					var key = window.prompt("[内部版本] 请输入密钥：");
 					setCookie("key", key, 30);
 					setCookie("alert", "true", 30);
-					setCookie("api", "https://capi.fenserver.cn/gpt.php", 30);
+					setCookie(
+						"api",
+						"http://fenserver1.w3.luyouxia.net/gpt.php",
+						30
+					);
 					alert(
 						"已经自动为您添加密钥至 Cookie 中！30天后自动失效。\n如需要提前失效或更换密钥可进入菜单中“安全”页面进行设置。\n默认为 FensGPT-3 服务器，可进入菜单中“安全”页面进行设置。"
 					);
