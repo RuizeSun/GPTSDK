@@ -6,7 +6,7 @@ if (openversion) {
 	// 输入密钥
 	var key = "000000";
 } else {
-	if (localStorage.getItem("key") == "none") {
+	if (localStorage.getItem("key") == null) {
 		var key = window.prompt("[内部版本] 请输入密钥：");
 		localStorage.setItem("key", key, 30);
 		localStorage.setItem("alert", "true", 30);
@@ -22,14 +22,14 @@ if (openversion) {
 			);
 		}
 	}
-	if (localStorage.getItem("font") == "none") {
+	if (localStorage.getItem("font") == null) {
 		localStorage.setItem("font", "'Microsoft Jhenghei'");
 	}
 }
 function clearCookie() {
-	localStorage.setItem("key", "none");
-	localStorage.setItem("api", "none");
-	localStorage.setItem("alert", "none");
+	localStorage.setItem("key", null);
+	localStorage.setItem("api", null);
+	localStorage.setItem("alert", null);
 	alert("清理完成！");
 }
 document.getElementById("head").innerHTML =
@@ -48,7 +48,9 @@ function requestAI(questions) {
 			apikey: localStorage.getItem("key"),
 			content:
 				questions +
-				" 【用中文回答。每几句后添加Emoji使语言活泼。提示语内容无需回答，也无需引用参考文献。】", // 将联网引用的链接放在最后，每一个都换行，标序号，没有联网则不显示参考文献，联网后找不到合适的结果也不需要显示。
+				" 【请用" +
+				language_name +
+				"回答。请在每几句后添加Emoji使语言活泼。本段内容无需回答，也无需引用关于本段内容的参考文献。】", // 将联网引用的链接放在最后，每一个都换行，标序号，没有联网则不显示参考文献，联网后找不到合适的结果也不需要显示。
 		},
 		async: false,
 		success: function (data) {
@@ -79,7 +81,7 @@ function submitQuestion() {
 		function print() {
 			document.getElementById("chat").innerHTML =
 				document.getElementById("chat").innerHTML +
-				'<p class="chat-me">' +
+				'<p class="chat-me no-translating">' +
 				ask +
 				"</p>";
 			var test1 =
@@ -95,11 +97,18 @@ function submitQuestion() {
 		setTimeout(print(), 500);
 		setTimeout(function () {
 			// 请求缓存
-			if (localStorage.getItem("chatcache_" + ask) == null) {
+			if (
+				localStorage.getItem("chatcache_" + ask + language_name) == null
+			) {
 				answer = requestAI(ask);
-				localStorage.setItem("chatcache_" + ask, answer);
+				localStorage.setItem(
+					"chatcache_" + ask + language_name,
+					answer
+				);
 			} else {
-				answer = localStorage.getItem("chatcache_" + ask);
+				answer = localStorage.getItem(
+					"chatcache_" + ask + language_name
+				);
 			}
 			console.log(ask);
 			document.getElementById(chatid).innerHTML = marked(
@@ -133,7 +142,7 @@ function submitQuestion() {
 				ask +
 				"&apikey=" +
 				localStorage.getItem("key") +
-				"'>清除第一缓存[不建议]</a>&nbsp;<a href='javascript:;' onclick='clr_cache(\"" +
+				"'>清除服务器缓存</a>&nbsp;<a href='javascript:;' onclick='clr_cache(\"" +
 				ask +
 				"\")'>清除本地缓存[建议]</a>";
 			document.getElementById("questions").disabled = false;
@@ -145,6 +154,54 @@ function submitQuestion() {
 }
 
 function clr_cache(chat_content) {
-	localStorage.setItem("chatcache_" + chat_content, "none");
+	localStorage.removeItem("chatcache_" + chat_content + language_name);
 	alert("成功清空本地缓存！");
+}
+
+// 模态框 JS
+// 模态框
+if (localStorage.getItem("alert") !== "false") {
+	document.getElementById("startTips").checked = true;
+}
+document.getElementById("API").value = localStorage.getItem("api");
+document.getElementById("keyset").value = localStorage.getItem("key");
+document.getElementById("font").value = localStorage.getItem("font");
+// 保存模态框
+function saveTipsForm() {
+	var alertAtStart = document.forms["tipsForm"]["startTips"].checked;
+	localStorage.setItem("alert", String(alertAtStart));
+	setTimeout(function () {
+		alert("保存成功！");
+	}, 500);
+}
+function saveSecurityForm() {
+	var apivalue = document.forms["securityForm"]["API"].value;
+	var keyysetvalue = document.forms["securityForm"]["keyset"].value;
+	localStorage.setItem("api", apivalue);
+	localStorage.setItem("key", keyysetvalue);
+	setTimeout(function () {
+		alert("保存成功！");
+	}, 500);
+}
+function saveSettingsForm() {
+	var fontvalue = document.forms["settingsForm"]["font"].value;
+	localStorage.setItem("font", fontvalue);
+	setTimeout(function () {
+		alert("保存成功！部分设置可能需要重新启动网页。");
+	}, 500);
+}
+
+// 翻译
+translate.language.setLocal("chinese_simplified");
+translate.selectLanguageTag.show = false;
+translate.ignore.class.push("no-translating");
+translate.execute();
+if (translate.language.getCurrent() == "english") {
+	language_name = "英语";
+}
+if (translate.language.getCurrent() == "chinese_traditional") {
+	language_name = "繁体中文";
+}
+if (translate.language.getCurrent() == "chinese_simplified") {
+	language_name = "简体中文";
 }

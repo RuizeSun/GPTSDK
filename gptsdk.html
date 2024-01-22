@@ -225,11 +225,6 @@
 			</div>
 			<div class="offcanvas-body">
 				<!-- 介绍(调用了版本号JS) -->
-				<p>
-					<script>
-						document.writeln("GPTSDK v" + version);
-					</script>
-				</p>
 				<p>由 纷易计算工作室 构建内置服务器。</p>
 				<!-- 选项 -->
 				<ul class="nav nav-pills flex-column mb-auto">
@@ -342,45 +337,6 @@
 				</div>
 			</div>
 		</form>
-
-		<!-- 模态框设置JS -->
-		<script>
-			// 模态框
-			if (localStorage.getItem("alert") !== "false") {
-				document.getElementById("startTips").checked = true;
-			}
-			document.getElementById("API").value = localStorage.getItem("api");
-			document.getElementById("keyset").value =
-				localStorage.getItem("key");
-			document.getElementById("font").value =
-				localStorage.getItem("font");
-			// 保存模态框
-			function saveTipsForm() {
-				var alertAtStart =
-					document.forms["tipsForm"]["startTips"].checked;
-				localStorage.setItem("alert", String(alertAtStart));
-				setTimeout(function () {
-					alert("保存成功！");
-				}, 500);
-			}
-			function saveSecurityForm() {
-				var apivalue = document.forms["securityForm"]["API"].value;
-				var keyysetvalue =
-					document.forms["securityForm"]["keyset"].value;
-				localStorage.setItem("api", apivalue);
-				localStorage.setItem("key", keyysetvalue);
-				setTimeout(function () {
-					alert("保存成功！");
-				}, 500);
-			}
-			function saveSettingsForm() {
-				var fontvalue = document.forms["settingsForm"]["font"].value;
-				localStorage.setItem("font", fontvalue);
-				setTimeout(function () {
-					alert("保存成功！部分设置可能需要重新启动网页。");
-				}, 500);
-			}
-		</script>
 		<!-- 翻译 -->
 		<script src="https://cdn.jsdelivr.net/gh/xnx3/translate@latest/translate.js/translate.min.js"></script>
 		<!-- 底部栏及语言选择框架 -->
@@ -390,23 +346,22 @@
 				>请勿发送违反中华人民共和国及您所在国家法律之消息，使用即表示您同意
 				GPTSDK 使用协议。</small
 			>
-			<script>
-				translate.language.setLocal("chinese_simplified");
-				// 翻译优化
-				translate.nomenclature.append(
-					"chinese_simplified",
-					"chinese_traditional",
-					`
-                    GPTSDK=GPTSDK
-                    API=API
-                    Cookies=Cookies
-                    Cookie=Cookie
-                    缓存=快取
-                    `
-				);
-				translate.execute();
-			</script>
-			<div id="translate"></div>
+			<br />
+			<a
+				href="javascript:translate.changeLanguage('english');"
+				class="no-translating"
+				>English</a
+			>&nbsp;|&nbsp;
+			<a
+				href="javascript:translate.changeLanguage('chinese_simplified');"
+				class="no-translating"
+				>简体中文</a
+			>&nbsp;|&nbsp;
+			<a
+				href="javascript:translate.changeLanguage('chinese_traditional');"
+				class="no-translating"
+				>繁體中文</a
+			>
 			<script src="./GPTSDK/main.js"></script>
 		</div>
 	</body>
