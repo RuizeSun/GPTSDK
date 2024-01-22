@@ -1,22 +1,4 @@
-function setCookie(cname, cvalue, exdays) {
-	// 设置 Cookie
-	var d = new Date();
-	d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
-	var expires = "expires=" + d.toGMTString();
-	document.cookie = cname + "=" + cvalue + "; " + expires;
-}
-function getCookie(cname) {
-	// 获取 Cookie
-	var name = cname + "=";
-	var ca = document.cookie.split(";");
-	for (var i = 0; i < ca.length; i++) {
-		var c = ca[i].trim();
-		if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
-	}
-	return "none";
-}
-
-var version = "1.3.4 (287f_01)"; // 版本设置
+var version = "1.3.5 (288a_01)"; // 版本设置
 var openversion = false;
 document.writeln("<title>GPTSDK " + version + "</title>"); // 页面标题
 // 输入密钥
@@ -24,46 +6,46 @@ if (openversion) {
 	// 输入密钥
 	var key = "000000";
 } else {
-	if (getCookie("key") == "none") {
+	if (localStorage.getItem("key") == "none") {
 		var key = window.prompt("[内部版本] 请输入密钥：");
-		setCookie("key", key, 30);
-		setCookie("alert", "true", 30);
-		setCookie("api", "https://capi1.fenserver.cn/gpt.php", 30);
+		localStorage.setItem("key", key, 30);
+		localStorage.setItem("alert", "true", 30);
+		localStorage.setItem("api", "https://capi1.fenserver.cn/gpt.php", 30);
 		alert(
 			"已经自动为您添加密钥至 Cookie 中！30天后自动失效。\n如需要提前失效或更换密钥可进入菜单中“安全”页面进行设置。\n默认为 FensGPT-3 服务器，可进入菜单中“安全”页面进行设置。"
 		);
 	} else {
-		var key = getCookie("key");
-		if (getCookie("alert") == "true") {
+		var key = localStorage.getItem("key");
+		if (localStorage.getItem("alert") == "true") {
 			alert(
 				"已经自动为您使用现有密钥，如需更换请进入菜单中“安全”页面进行设置。\n如需关闭此弹窗，可进入菜单中“提醒”页面进行设置。"
 			);
 		}
 	}
-	if (getCookie("font") == "none") {
-		setCookie("font", "'Microsoft Jhenghei'");
+	if (localStorage.getItem("font") == "none") {
+		localStorage.setItem("font", "'Microsoft Jhenghei'");
 	}
 }
 function clearCookie() {
-	setCookie("key", "none");
-	setCookie("api", "none");
-	setCookie("alert", "none");
+	localStorage.setItem("key", "none");
+	localStorage.setItem("api", "none");
+	localStorage.setItem("alert", "none");
 	alert("清理完成！");
 }
 document.getElementById("head").innerHTML =
 	document.getElementById("head").innerHTML +
 	"<style>*{font-family: " +
-	getCookie("font") +
+	localStorage.getItem("font") +
 	";}</style>";
 
 function requestAI(questions) {
 	// 请求部分
 	result = "<font color='red'>[错误] Ajax 请求过程中出现问题。</font>";
 	$.ajax({
-		url: getCookie("api"),
+		url: localStorage.getItem("api"),
 		type: "post",
 		data: {
-			apikey: getCookie("key"),
+			apikey: localStorage.getItem("key"),
 			content:
 				questions +
 				" 【用中文回答。每几句后添加Emoji使语言活泼。提示语内容无需回答，也无需引用参考文献。】", // 将联网引用的链接放在最后，每一个都换行，标序号，没有联网则不显示参考文献，联网后找不到合适的结果也不需要显示。
@@ -77,7 +59,8 @@ function requestAI(questions) {
 		result = "<font color='red'>[错误] 密钥错误。</font>";
 	}
 	if (result == undefined) {
-		result = "<font color='red'>[错误] 未知错误，控制台可能有更多信息。</font>";
+		result =
+			"<font color='red'>[错误] 未知错误，控制台可能有更多信息。</font>";
 	}
 	return result;
 }
@@ -95,7 +78,10 @@ function submitQuestion() {
 		// 请求并显示UI
 		function print() {
 			document.getElementById("chat").innerHTML =
-				document.getElementById("chat").innerHTML + '<p class="chat-me">' + ask + "</p>";
+				document.getElementById("chat").innerHTML +
+				'<p class="chat-me">' +
+				ask +
+				"</p>";
 			var test1 =
 				document.getElementById("chat").innerHTML +
 				'<p class="chat-ta" id="' +
@@ -146,7 +132,7 @@ function submitQuestion() {
 				"<a href='//capi1.fenserver.cn/delq.php?delq=" +
 				ask +
 				"&apikey=" +
-				getCookie("key") +
+				localStorage.getItem("key") +
 				"'>清除第一缓存[不建议]</a>&nbsp;<a href='javascript:;' onclick='clr_cache(\"" +
 				ask +
 				"\")'>清除本地缓存[建议]</a>";
