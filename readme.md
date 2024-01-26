@@ -1,3 +1,5 @@
+**现在本项目已经更名为RAIC（Ruize's AI-Chat Client，Ruize 的 人工智能聊天客户端），请前往我的 Github 首页获取更多信息。**
+
 # GPTSDK Readme
 
 本文檔有多個語言的版本。  
